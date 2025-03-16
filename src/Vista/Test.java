@@ -46,6 +46,10 @@ public class Test {
         System.out.println("Signo: " + ieee.getSigno());
         System.out.println("Exponente: " + ieee.getExpBinary());
         System.out.println("Mantisa: " + ieee.getMantisa());
+        System.out.println("Test Numero IEEE 32 bits: " + ieee.conversionIEEEaDecimal("01000001100001000000000000000000"));
+        System.out.println("Signo: " + ieee.getSigno());
+        System.out.println("Exponente: " + ieee.getExpBinary());
+        System.out.println("Mantisa: " + ieee.getMantisa());
         
     }
 }

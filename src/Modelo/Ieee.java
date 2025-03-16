@@ -158,11 +158,11 @@ public class Ieee {
 
     public double conversionIEEEaDecimal(String num) {
         if (num.length() == 32 || num.length() == 64) {
-            String signo = num.substring(0, 1);
-            String expBinario = (num.length() == 32) ? num.substring(1, 9) : num.substring(1, 12);
-            String mantisaBinaria = (num.length() == 32) ? num.substring(9) : num.substring(12);
-            int exponente = binarioAdecimal(Long.parseLong(expBinario)) - ((num.length() == 32) ? 127 : 1023);
-            double mantisaDecimal = convertirMantisa(mantisaBinaria);
+            signo = num.substring(0, 1);
+            expBinary = (num.length() == 32) ? num.substring(1, 9) : num.substring(1, 12);
+            mantisa = (num.length() == 32) ? num.substring(9) : num.substring(12);
+            int exponente = binarioAdecimal(Long.parseLong(expBinary)) - ((num.length() == 32) ? 127 : 1023);
+            double mantisaDecimal = convertirMantisa(mantisa);
             double resultado = Math.pow(2, exponente) * mantisaDecimal;
             return signo.equals("1") ? -resultado : resultado;
         }
@@ -170,8 +170,7 @@ public class Ieee {
     }
 
     private double convertirMantisa(String mantisaBinaria) {
-        double resultado = 1.0; // El 1 implícito en la mantisa normalizada
-
+        double resultado = 1.0;
         for (int i = 0; i < mantisaBinaria.length(); i++) {
             if (mantisaBinaria.charAt(i) == '1') {
                 resultado += Math.pow(2, -(i + 1));
@@ -179,5 +178,4 @@ public class Ieee {
         }
         return resultado;
     }
-
 }
