@@ -6,7 +6,8 @@ package Modelo;
 
 /**
  *
- * @author N
+ * @author Nikol Ortiz y Daniela Garcia 
+ * 1152348 - 1152365
  */
 public class Ieee {
 
