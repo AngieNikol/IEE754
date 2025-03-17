@@ -108,6 +108,10 @@ public class Ieee {
     }
 
     public String conversionIEEEde64Bits(double num) {
+        if (num == 0.0) {
+            return "0000000000000000000000000000000000000000000000000000000000000000";
+        }
+
         signo = (num < 0) ? "1" : "0";
         num = Math.abs(num);
 
