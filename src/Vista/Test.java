@@ -17,6 +17,7 @@ public class Test {
 
         System.out.println("----------TEST DECIMAL A IEEE 754 DE 32 BITS ---------------");
         System.out.println("Test Numero Grande positivo: " + ieee.conversionIEEEde32Bits(56.89));
+        System.out.println("Test Numero Grande positivo: " + ieee.conversionIEEEde32Bits(2.0));
         System.out.println("Test Numero Grande positivo: " + ieee.conversionIEEEde32Bits(16.5));
         System.out.println("Test Numero Grande Negativo: " + ieee.conversionIEEEde32Bits(-23.7));
         System.out.println("Test Ceros: " + ieee.conversionIEEEde32Bits(0.0));
