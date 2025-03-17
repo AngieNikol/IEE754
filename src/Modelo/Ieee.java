@@ -16,7 +16,6 @@ public class Ieee {
 
     public Ieee() {
     }
-   
 
     public Ieee(String signo, String expBinary, String mantisa) {
         this.signo = signo;
@@ -49,39 +48,35 @@ public class Ieee {
     }
 
     public String conversionIEEEde32Bits(double num) {
-
         if (num == 0.0) {
             return "00000000000000000000000000000000";
         }
-
         signo = (num < 0) ? "1" : "0";
         num = Math.abs(num);
 
-        double temp = num;
         int iterador = 0;
-        while (temp > 2) {
-            temp /= 2;
-            iterador++;
-        }
-        while (temp < 1) {
-            temp *= 2;
-            iterador--;
-        }
-
-        int exponente = 127 + iterador;
-        expBinary = String.format("%8s", decimalAbinario(exponente)).replace(' ', '0');
-
-        temp -= 1.0;
-        String binario = decimalAbinarioD(temp);
-
-        mantisa = binario.substring(2);
-        if (mantisa.length() > 23) {
-            mantisa = mantisa.substring(0, 23);
-        } else {
-            while (mantisa.length() < 23) {
-                mantisa += "0";
+        if (num >= 2) {
+            while (num >= 2) {
+                num /= 2;
+                iterador++;
+            }
+        } else if (num < 1) {
+            while (num < 1) {
+                num *= 2;
+                iterador--;
             }
         }
+        int exponente = 127 + iterador;
+        expBinary = String.format("%8s", Integer.toBinaryString(exponente)).replace(' ', '0');
+        double mantisaDecimal = num - 1.0; 
+        StringBuilder mantisaBuilder = new StringBuilder();
+        for (int i = 0; i < 23; i++) {
+            mantisaDecimal *= 2;
+            int bit = (int) mantisaDecimal;
+            mantisaBuilder.append(bit);
+            mantisaDecimal -= bit;
+        }
+        mantisa = mantisaBuilder.toString();
         return signo + expBinary + mantisa;
     }
 
