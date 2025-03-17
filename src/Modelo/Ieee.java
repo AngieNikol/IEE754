@@ -6,8 +6,7 @@ package Modelo;
 
 /**
  *
- * @author Nikol Ortiz y Daniela Garcia 
- * 1152348 - 1152365
+ * @author Nikol Ortiz y Daniela Garcia 1152348 - 1152365
  */
 public class Ieee {
 
@@ -69,7 +68,7 @@ public class Ieee {
         }
         int exponente = 127 + iterador;
         expBinary = String.format("%8s", Integer.toBinaryString(exponente)).replace(' ', '0');
-        double mantisaDecimal = num - 1.0; 
+        double mantisaDecimal = num - 1.0;
         StringBuilder mantisaBuilder = new StringBuilder();
         for (int i = 0; i < 23; i++) {
             mantisaDecimal *= 2;
@@ -114,30 +113,31 @@ public class Ieee {
 
         double temp = num;
         int iterador = 0;
-        while (temp > 2) {
-            temp /= 2;
-            iterador++;
-        }
-        while (temp < 1) {
-            temp *= 2;
-            iterador--;
+        if (num >= 2) {
+            while (num >= 2) {
+                num /= 2;
+                iterador++;
+            }
+        } else if (num < 1) {
+            while (num < 1) {
+                num *= 2;
+                iterador--;
+            }
         }
 
         int exponente = 1023 + iterador;
         expBinary = String.format("%8s", decimalAbinario(exponente)).replace(' ', '0');
-
-        temp -= 1.0;
-        String binario = decimalAbinarioD(temp);
-
-        mantisa = binario.substring(2);
-        if (mantisa.length() > 52) {
-            mantisa = mantisa.substring(0, 52);
-        } else {
-            while (mantisa.length() < 52) {
-                mantisa += "0";
-            }
+        double mantisaDecimal = num - 1.0;
+        StringBuilder mantisaBuilder = new StringBuilder();
+        for (int i = 0; i < 52; i++) {
+            mantisaDecimal *= 2;
+            int bit = (int) mantisaDecimal;
+            mantisaBuilder.append(bit);
+            mantisaDecimal -= bit;
         }
+        mantisa = mantisaBuilder.toString();
         return signo + expBinary + mantisa;
+
     }
 
     private int binarioAdecimal(long binario) {
